@@ -21,10 +21,6 @@ canvas.height = window.innerHeight;
 //Variable para usar canvas
 var c = canvas.getContext("2d");
 
-
-
-
-
 //Cuadrícula
 let cx = 0;
 let cy = 0;
@@ -55,10 +51,10 @@ const dx = 0.0001
 
 //Coordenadas de la línea de carga
 //Puntos iniciales de la línea de carga
-let x_1 = 1
+let x_1 = 100
 let y_1 = 0
-//Punto final de la línea de carga
-let x_2 = 100
+//Punto final de la línea de carga 
+let x_2 = 150
 let y_2 = 185
 //Componentes de la línea
 let Comx= (x_2-x_1)
@@ -85,12 +81,12 @@ c.lineTo(x_2, canvas.height-y_2);
 c.stroke(); 
 
 
+
 //integral
 function integral(){
     
     //y = m*(x-x_1)+y_1
-    lambda = Q/l
-    dQ= lambda*dL
+    
     
     return l;
 }
@@ -101,24 +97,21 @@ function integral(){
 let A_1=0
 let A_2=0
 let A = 0
-
+//Varible independiente
 let punto = 0
-let punto1 = 0
+
 let CantidadDeRectangulos1 = x_2/dx
 let CantidadDeRectangulos2 = x_1/dx
-
 for (let i = 0; i < CantidadDeRectangulos1; i++) {
-    A_1= (1/(punto+1))*dx + A_1
+    A_1= (k*DensQ*dL*dx*(punto-a))/(Math.pow(Math.sqrt(Math.pow(y-b,2)+Math.pow(punto-a,2))),3) + A_1
     punto = dx + punto
 }
-
-
+punto = 0
 for (let i = 0; i < CantidadDeRectangulos2; i++) {
-    A_2 = (1/(punto1+1))*dx + A_2
-    punto1 = dx + punto1
+    A_2 = (k*DensQ*dL*dx*(punto-a))/(Math.pow(Math.sqrt(Math.pow(y-b,2)+Math.pow(punto-a,2)),3)) + A_2
+    punto = dx + punto
 }
-
-
+punto = 0
 A = A_1-A_2 
 
 
