@@ -51,13 +51,14 @@ for (let i = 0; i < 170; i++) {
 const pi = Math.PI
 const ep = 8.85*Math.pow(10,-12)
 const k = 1/(pi*ep*4)
+const dx = 0.0001
 
 //Coordenadas de la línea de carga
 //Puntos iniciales de la línea de carga
-let x_1 = 50
-let y_1 = 100
+let x_1 = 1
+let y_1 = 0
 //Punto final de la línea de carga
-let x_2 = 70
+let x_2 = 100
 let y_2 = 185
 //Componentes de la línea
 let Comx= (x_2-x_1)
@@ -74,14 +75,14 @@ let DensQ = Q/l
 
 //Coordenadas de carga puntual
 let a = 0
-let b = 0
+let b = canvas.height -0
 
 
 //Dibujo de la línea finita de carga
 c.beginPath();
-c.moveTo(x_1,y_1);
-c.lineTo(x_2,y_2);
-c.stroke();
+c.moveTo(x_1, canvas.height-y_1);
+c.lineTo(x_2, canvas.height-y_2);
+c.stroke(); 
 
 
 //integral
@@ -94,20 +95,15 @@ function integral(){
     return l;
 }
 
-console.log(integral(1,2,4,6,5,6))
-console.log(ep)
-
-
 
 
 //Suma de Riemann 
 let A_1=0
 let A_2=0
 let A = 0
-const dx = 0.0001
+
 let punto = 0
 let punto1 = 0
-let fx = 0
 let CantidadDeRectangulos1 = x_2/dx
 let CantidadDeRectangulos2 = x_1/dx
 
@@ -126,8 +122,8 @@ for (let i = 0; i < CantidadDeRectangulos2; i++) {
 A = A_1-A_2 
 
 
-console.log("Area: "+A_1)
-console.log("Area: "+A_2)
-console.log("Area: "+A)
+console.log("Area 1 : "+A_1)
+console.log("Area 2 : "+A_2)
+console.log("Area : "+A)
 
 
