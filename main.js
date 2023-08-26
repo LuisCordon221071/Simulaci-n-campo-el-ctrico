@@ -21,32 +21,28 @@ canvas.height = window.innerHeight;
 //Variable para usar canvas
 var c = canvas.getContext("2d");
 
-//Rectangulo: Linea finita de carga
-c.fillRect(100,250,10,100)
 
-c.beginPath();
-c.moveTo(0,0);
-c.lineTo(200,125/7);
-c.stroke();
+
+
 
 //Cuadrícula
 let cx = 0;
 let cy = 0;
-
+    
 //Líneas en x
 for (let i = 0; i < 170; i++) {
     cx = cx+20
     c.beginPath();
     c.moveTo(cx,0);
-    c.lineTo(cx,751);
+    c.lineTo(cx,canvas.height);
     c.stroke();
 }
-//Líneas en y
+//Líneas en x
 for (let i = 0; i < 170; i++) {
     cy = cy+20
     c.beginPath();
     c.moveTo(0,cy);
-    c.lineTo(1800,cy);
+    c.lineTo(canvas.width,cy);
     c.stroke();
 }
 
@@ -58,31 +54,39 @@ const k = 1/(pi*ep*4)
 
 //Coordenadas de la línea de carga
 //Puntos iniciales de la línea de carga
-let x_1 = 5
-let y_1 = 0
-
+let x_1 = 50
+let y_1 = 100
 //Punto final de la línea de carga
-let x_2 = 7
-let y_2 = 0
+let x_2 = 70
+let y_2 = 185
+//Componentes de la línea
+let Comx= (x_2-x_1)
+let Comy = (y_2-y_1) 
+//Pendiente de la línea
+let m = Comy/Comx
+//Longitud de la línea
+let l = Math.sqrt(Math.pow(Comy,2)+Math.pow(Comx,2))
+//Diferencial de longitud
+let dL = Math.sqrt(1 + (Math.pow(m,2)))
+//Longitud, carga y densidad de carga de la líena finita de carga
+let Q = 0
+let DensQ = Q/l
 
 //Coordenadas de carga puntual
 let a = 0
 let b = 0
 
-//Longitud, carga y densidad de carga de la líena finita de carga
-let l = (1)
-let Q = 0
-let DensQ = Q/l
+
+//Dibujo de la línea finita de carga
+c.beginPath();
+c.moveTo(x_1,y_1);
+c.lineTo(x_2,y_2);
+c.stroke();
 
 
 //integral
-/*
-function integral(cx,cy,){
-    cy=(y_2-y_1)
-    cx=(x_2-x_1)
-    m = cy/cx
-    l = Math.sqrt(Math.pow(cx,2)+Math.pow(cy,2))
-    dL=Math.sqrt(1+Math.pow(m,2))
+function integral(){
+    
     //y = m*(x-x_1)+y_1
     lambda = Q/l
     dQ= lambda*dL
@@ -92,7 +96,7 @@ function integral(cx,cy,){
 
 console.log(integral(1,2,4,6,5,6))
 console.log(ep)
-*/
+
 
 
 
@@ -121,8 +125,9 @@ for (let i = 0; i < CantidadDeRectangulos2; i++) {
 
 A = A_1-A_2 
 
-console.log(CantidadDeRectangulos1)
-console.log(CantidadDeRectangulos2)
+
 console.log("Area: "+A_1)
 console.log("Area: "+A_2)
 console.log("Area: "+A)
+
+
