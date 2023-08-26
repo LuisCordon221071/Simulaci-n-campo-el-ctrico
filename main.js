@@ -33,6 +33,7 @@ c.stroke();
 let cx = 0;
 let cy = 0;
 
+//Líneas en x
 for (let i = 0; i < 170; i++) {
     cx = cx+20
     c.beginPath();
@@ -40,7 +41,7 @@ for (let i = 0; i < 170; i++) {
     c.lineTo(cx,751);
     c.stroke();
 }
-
+//Líneas en y
 for (let i = 0; i < 170; i++) {
     cy = cy+20
     c.beginPath();
@@ -50,22 +51,32 @@ for (let i = 0; i < 170; i++) {
 }
 
 
-//Constantes y variables de la integral
+//Constantes 
 const pi = Math.PI
 const ep = 8.85*Math.pow(10,-12)
 const k = 1/(pi*ep*4)
-let Q = 0
-let x_1 = 0
+
+//Coordenadas de la línea de carga
+//Puntos iniciales de la línea de carga
+let x_1 = 5
 let y_1 = 0
-let x_2 = 5
+
+//Punto final de la línea de carga
+let x_2 = 7
 let y_2 = 0
+
+//Coordenadas de carga puntual
 let a = 0
 let b = 0
+
+//Longitud, carga y densidad de carga de la líena finita de carga
 let l = (1)
+let Q = 0
 let DensQ = Q/l
 
 
 //integral
+/*
 function integral(cx,cy,){
     cy=(y_2-y_1)
     cx=(x_2-x_1)
@@ -79,23 +90,39 @@ function integral(cx,cy,){
     return l;
 }
 
-
-
 console.log(integral(1,2,4,6,5,6))
 console.log(ep)
+*/
 
-let A=0
-let ccx = x_2-x_1;
-let dx = 0.0001
+
+
+//Suma de Riemann 
+let A_1=0
+let A_2=0
+let A = 0
+const dx = 0.0001
 let punto = 0
+let punto1 = 0
 let fx = 0
-let CantidadDeRectangulos = ccx/dx
+let CantidadDeRectangulos1 = x_2/dx
+let CantidadDeRectangulos2 = x_1/dx
 
-for (let i = 0; i < CantidadDeRectangulos; i++) {
-    A= (1/(punto+1))*dx + A
+for (let i = 0; i < CantidadDeRectangulos1; i++) {
+    A_1= (1/(punto+1))*dx + A_1
     punto = dx + punto
 }
 
 
-console.log(CantidadDeRectangulos)
+for (let i = 0; i < CantidadDeRectangulos2; i++) {
+    A_2 = (1/(punto1+1))*dx + A_2
+    punto1 = dx + punto1
+}
+
+
+A = A_1-A_2 
+
+console.log(CantidadDeRectangulos1)
+console.log(CantidadDeRectangulos2)
+console.log("Area: "+A_1)
+console.log("Area: "+A_2)
 console.log("Area: "+A)
