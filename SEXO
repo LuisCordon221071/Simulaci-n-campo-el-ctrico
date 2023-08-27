@@ -1,0 +1,170 @@
+
+//Seguimiento del punto al cursor
+/*var cursor = document.getElementById("cursor")
+    document.addEventListener("mousemove", function (params) {
+        var x = params.clientX;
+        var y = params.clientY;
+        cursor.style.top=y+"px";
+        cursor.style.left=x+"px";
+
+    })*/
+
+
+//Canvas
+var canvas = document.querySelector("canvas");
+
+//Modificar canvas al tamaño de la pantalla
+canvas.width = window.innerWidth/4;
+canvas.height = window.innerHeight;
+
+//Variable para usar canvas
+var c = canvas.getContext("2d");
+
+//Cuadrícula
+let cx = 0;
+let cy = 0;
+    
+//Líneas en x
+for (let i = 0; i < 170; i++) {
+    cx = cx+20
+    c.beginPath();
+    c.moveTo(cx,0);
+    c.lineTo(cx,canvas.height);
+    c.stroke();
+}
+//Líneas en x
+for (let i = 0; i < 170; i++) {
+    cy = cy+20
+    c.beginPath();
+    c.moveTo(0,cy);
+    c.lineTo(canvas.width,cy);
+    c.stroke();
+}
+
+//Constantes 
+const pi = Math.PI
+const ep = 8.85*Math.pow(10,-12)
+const k = 1/(pi*ep*4)
+const dx = 0.0001
+
+function dibujarCuadricula() {
+    var paso = 20;
+
+    c.strokeStyle = "#ccc";
+    c.lineWidth = 1;
+
+    for (var x = 0; x < canvas.width; x += paso) {
+        c.beginPath();
+        c.moveTo(x, 0);
+        c.lineTo(x, canvas.height);
+        c.stroke();
+    }
+
+    for (var y = 0; y < canvas.height; y += paso) {
+        c.beginPath();
+        c.moveTo(0, y);
+        c.lineTo(canvas.width, y);
+        c.stroke();
+    }
+}
+
+
+//Coordenadas de la línea de carga
+        var canvas = document.getElementById("canvas");
+        var c = canvas.getContext("2d");
+
+        function actualizarCoordenadas() {
+            var puntoInicialInput = document.getElementById("puntoInicial").value;
+            var puntoFinalInput = document.getElementById("puntoFinal").value;
+
+            var puntoInicialArray = puntoInicialInput.split(",");
+            var puntoFinalArray = puntoFinalInput.split(",");
+            
+            if (puntoInicialArray.length === 2 && puntoFinalArray.length === 2) {
+                var x_1 = parseFloat(puntoInicialArray[0]);
+                var y_1 = parseFloat(puntoInicialArray[1]);
+                var x_2 = parseFloat(puntoFinalArray[0]);
+                var y_2 = parseFloat(puntoFinalArray[1]);
+
+                if (!isNaN(x_1) && !isNaN(y_1) && !isNaN(x_2) && !isNaN(y_2)) {
+                    var Comx = (x_2 - x_1);
+                    var Comy = (y_2 - y_1);
+                    var m = Comy / Comx;
+                    var l = Math.sqrt(Math.pow(Comy, 2) + Math.pow(Comx, 2));
+                    var dL = Math.sqrt(1 + (Math.pow(m, 2)));
+                    var Q = 0;
+                    var DensQ = Q / l;
+
+                    console.log("Nuevas Coordenadas:");
+                    console.log("Punto Inicial X: " + x_1 + ", Punto Inicial Y: " + y_1);
+                    console.log("Punto Final X: " + x_2 + ", Punto Final Y: " + y_2);
+                    console.log("Comx: " + Comx);
+                    console.log("Comy: " + Comy);
+                    console.log("Pendiente: " + m);
+                    console.log("Longitud: " + l);
+                    console.log("Diferencial de Longitud: " + dL);
+                    console.log("Densidad de Carga: " + DensQ);
+
+                    // Dibujo de la línea finita de carga
+                    c.clearRect(0, 0, canvas.width, canvas.height);
+                    dibujarCuadricula();
+                    c.beginPath();
+                    c.moveTo(x_1, canvas.height - y_1);
+                    c.lineTo(x_2, canvas.height - y_2);
+                    c.stroke();
+                    // Llama a dibujarCuadricula al cargar la página
+                    dibujarCuadricula();
+                
+                } else {
+                    console.log("Formato de coordenadas inválido.");
+                }
+            } else {
+                console.log("Formato de coordenadas inválido.");
+            }
+        }
+
+
+
+//Coordenadas de carga puntual
+let a = 0
+let b = canvas.height -0
+
+    
+//integral
+function integral(){
+    
+    //y = m*(x-x_1)+y_1
+    
+    
+    return l;
+}
+
+
+
+//Suma de Riemann 
+let A_1=0
+let A_2=0
+let A = 0
+
+//Varible independiente
+let punto = 0
+
+
+let CantidadDeRectangulos1 = x_2/dx
+let CantidadDeRectangulos2 = x_1/dx
+for (let i = 0; i < CantidadDeRectangulos1; i++) {
+    A_1= (k*DensQ*dL*dx*(punto-a))/(Math.pow(Math.sqrt(Math.pow(y-b,2)+Math.pow(punto-a,2))),3) + A_1
+    punto = dx + punto
+}
+punto = 0
+for (let i = 0; i < CantidadDeRectangulos2; i++) {
+    A_2 = (k*DensQ*dL*dx*(punto-a))/(Math.pow(Math.sqrt(Math.pow(y-b,2)+Math.pow(punto-a,2)),3)) + A_2
+    punto = dx + punto
+}
+punto = 0
+A = A_1-A_2 
+
+
+console.log("Area 1 : "+A_1)
+console.log("Area 2 : "+A_2)
+console.log("Area : "+A)
